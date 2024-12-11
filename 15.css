@@ -1,0 +1,132 @@
+/* Reset box model and margin/padding */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+li {
+    list-style: none;
+}
+
+/* Basic page styles */
+body {
+    background-color: rgb(0, 0, 0);
+    position: relative;
+}
+
+.pictrue {
+    margin: 40px 0 0 40px;
+    width: 128px;
+    height: 24px;
+}
+
+.title {
+    margin: 56px 0 0 80px;
+}
+
+.title h4 {
+    color: rgb(255, 255, 255);
+    margin-bottom: 24px;
+    font-size: 32px;
+    display: block;
+    width: 600px;
+}
+
+@media(max-width:650px) {
+    .title h4 {
+        font-size: 27px;
+    }
+}
+
+.title span {
+    display: block;
+    width: 600px;
+    color: rgba(253, 253, 253, 0.6);
+    font-size: 16px;
+}
+
+@media(max-width:650px) {
+    .title span {
+        font-size: 11px;
+    }
+}
+
+/* Progress bar container */
+.run {
+    display: flex;
+    margin: 50px auto;
+    align-items: center;
+    min-width: 500px;
+    position: relative;
+}
+
+@media(min-width:1223px) {
+    .run {
+        width: 1226px;
+    }
+}
+
+.left-box {
+    margin-right: 24px;
+    text-align: right;
+}
+
+.right-box {
+    margin-left: 24px;
+    text-align: left;
+}
+
+.left-word,
+.right-word {
+    color: aliceblue;
+}
+
+.left-words,
+.right-words {
+    color: aliceblue;
+    width: 110px;
+}
+
+/* Center box for the progress bar */
+.center-box {
+    background-color: rgba(255, 255, 255, 0.4);
+    flex: 1;
+    height: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+/* Box segments */
+.box1,
+.box2,
+.box3 {
+    background-color: #fff;
+    width: 2px;
+    height: 14px;
+}
+
+/* Ball styling */
+.ball {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+/* Trail styling */
+.trail {
+    position: absolute;
+    /* 初始位置在中间 */
+    height: 4px;
+    width: 0;
+    /* 初始宽度为0 */
+    z-index: -1;
+    /* 确保轨迹在小球下方 */
+}

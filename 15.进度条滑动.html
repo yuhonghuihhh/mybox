@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./15.css">
+</head>
+
+<body>
+    <div class="bigbox">
+        <div class="pictrue"><img src="./images/NEXA.png" alt=""></div>
+        <div class="title">
+            <h4>
+                品牌个性讨论
+                <br>
+                Discussion of brand personality
+            </h4>
+            <span>
+                假如品牌具有人格,你希望ta是一种怎么样的个性
+                <br>
+                If your brand were a person, what kind of personality would they have?
+            </span>
+        </div>
+        <div class="run">
+            <div class="left-box">
+                <div class="left-word">成熟的</div>
+                <div class="left-words">Mature</div>
+            </div>
+            <div class="center-box">
+                <div class="box1"></div>
+                <div class="box2"></div>
+                <div class="box3"></div>
+                <div class="ball"></div>
+                <div class="trail"></div>
+            </div>
+            <div class="right-box">
+                <div class="right-words">年轻的</div>
+                <div class="right-words">Young</div>
+            </div>
+        </div>
+        <div class="run">
+            <div class="left-box">
+                <div class="left-word">女性化</div>
+                <div class="left-words">Feminine</div>
+            </div>
+            <div class="center-box">
+                <div class="box1"></div>
+                <div class="box2"></div>
+                <div class="box3"></div>
+                <div class="ball"></div>
+                <div class="trail"></div>
+            </div>
+            <div class="right-box">
+                <div class="right-words">男性化</div>
+                <div class="right-words">Masculine</div>
+            </div>
+        </div>
+        <div class="run">
+            <div class="left-box">
+                <div class="left-word">保守的</div>
+                <div class="left-words">Classic</div>
+            </div>
+            <div class="center-box">
+                <div class="box1"></div>
+                <div class="box2"></div>
+                <div class="box3"></div>
+                <div class="ball"></div>
+                <div class="trail"></div>
+            </div>
+            <div class="right-box">
+                <div class="right-words">创新的</div>
+                <div class="right-words">Innovative</div>
+            </div>
+        </div>
+        <div class="run">
+            <div class="left-box">
+                <div class="left-word">专业</div>
+                <div class="left-words">Formal</div>
+            </div>
+            <div class="center-box">
+                <div class="box1"></div>
+                <div class="box2"></div>
+                <div class="box3"></div>
+                <div class="ball"></div>
+                <div class="trail"></div>
+            </div>
+            <div class="right-box">
+                <div class="right-words">生活</div>
+                <div class="right-words">Lifestyle</div>
+            </div>
+        </div>
+        <div class="run">
+            <div class="left-box">
+                <div class="left-word">优雅高冷</div>
+                <div class="left-words">Elegant</div>
+            </div>
+            <div class="center-box">
+                <div class="box1"></div>
+                <div class="box2"></div>
+                <div class="box3"></div>
+                <div class="ball"></div>
+                <div class="trail"></div>
+            </div>
+            <div class="right-box">
+                <div class="right-words">平易近人</div>
+                <div class="right-words">Approachable</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- -------------------- -->
+    <script>
+        document.querySelectorAll('.ball').forEach(ball => {
+            const centerBox = ball.closest('.center-box'); // 获取滑块容器
+            const trail = centerBox.querySelector('.trail'); // 获取轨迹元素
+
+            let isDragging = false; // 是否正在拖动
+            let centerBoxWidth = centerBox.offsetWidth; // 容器宽度
+            let centerBoxLeft = centerBox.getBoundingClientRect().left; // 容器左侧位置
+
+            // 更新尺寸（窗口变化时）
+            window.addEventListener('resize', () => {
+                centerBoxWidth = centerBox.offsetWidth;
+                centerBoxLeft = centerBox.getBoundingClientRect().left;
+            });
+
+            // 鼠标或触摸开始拖动
+            const startDrag = (e) => {
+                isDragging = true;
+                document.body.style.userSelect = 'none'; // 禁止选中文本
+            };
+
+            // 鼠标或触摸移动时更新位置和轨迹
+            const moveDrag = (e) => {
+                if (isDragging) {
+                    const mouseX = e.touches ? e.touches[0].clientX : e.clientX; // 获取鼠标或触摸的 X 坐标
+                    const ballX = Math.max(centerBoxLeft, Math.min(mouseX, centerBoxLeft + centerBoxWidth)); // 限制小球的范围
+                    const percentage = ((ballX - centerBoxLeft) / centerBoxWidth) * 100; // 计算百分比位置
+
+                    // 更新小球位置
+                    ball.style.left = `${percentage}%`;
+
+                    // 更新轨迹
+                    trail.style.width = `${Math.abs(percentage - 50)}%`; // 轨迹宽度
+                    if (percentage >= 50) {
+                        // 右侧蓝色
+                        trail.style.left = '50%';
+                        trail.style.background = '#00F6F6';
+                    } else {
+                        // 左侧粉色
+                        trail.style.left = `${percentage}%`;
+                        trail.style.background = '#FF30D6';
+                    }
+                }
+            };
+
+            // 鼠标或触摸结束拖动
+            const endDrag = () => {
+                if (isDragging) {
+                    isDragging = false;
+                    document.body.style.userSelect = ''; // 恢复文本选择
+                }
+            };
+
+            // 添加事件监听器（鼠标）
+            ball.addEventListener('mousedown', startDrag);
+            document.addEventListener('mousemove', moveDrag);
+            document.addEventListener('mouseup', endDrag);
+
+            // 添加事件监听器（触摸）
+            ball.addEventListener('touchstart', startDrag);
+            ball.addEventListener('touchmove', moveDrag);
+            ball.addEventListener('touchend', endDrag);
+        });
+
+    </script>
+
+
+</body>
+
+</html>
